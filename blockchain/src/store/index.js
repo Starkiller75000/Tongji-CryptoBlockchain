@@ -6,7 +6,7 @@ Vue.use(Vuex);
 const store = new Vuex.Store({
   state: {
     count: 0,
-    drawer: true
+    drawer: false
   },
   mutations: {
     setState(state, payload) {
