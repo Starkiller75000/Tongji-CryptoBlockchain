@@ -19,7 +19,7 @@
     <v-btn @click="clear">
       clear
     </v-btn>
-    <v-data-table :headers="headers" class="elevation-2" :items="transactions">
+    <v-data-table :headers="headers" class="elevation-5" :items="transactions">
       <template v-slot:item.time="{ item }">{{
         (item.time * 1000) | datef
       }}</template>

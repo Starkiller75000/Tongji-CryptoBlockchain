@@ -1,29 +1,31 @@
 # blockchain
 
 ## Project setup
-```
-yarn install
+```bash
+yarn #npm i
 ```
 
 ### Compiles and hot-reloads for development
-```
-yarn run serve
+```bash
+yarn run serve #npm run serve
 ```
 
 ### Compiles and minifies for production
-```
-yarn run build
-```
-
-### Run your tests
-```
-yarn run test
+```bash
+yarn run build #npm run build
 ```
 
-### Lints and fixes files
-```
-yarn run lint
-```
 
-### Customize configuration
-See [Configuration Reference](https://cli.vuejs.org/config/).
+## TODO
+
+- [ ] blockchain viewer
+  - [ ] data api 
+    - [ ] fetch last *n* transactions at creation
+    - [ ] fetch last *n* blocks at creation
+  - [ ] websocket 
+    - [x] realtime btc blockchain transactions
+    - [ ] realtime btc blockchain block
+- [ ] coinbase portal
+  - [ ] connection oauth2 (see with giga backend)
+  - [ ] see balance
+  - [ ] make an order (sell/buy)
