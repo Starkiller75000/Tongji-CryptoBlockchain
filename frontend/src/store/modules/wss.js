@@ -2,7 +2,8 @@ import {
   CLEAR_TRANSACTIONS,
   SOCKET_ONCLOSE,
   SOCKET_ONMESSAGE,
-  SOCKET_ONOPEN
+  SOCKET_ONOPEN,
+  SOCKET_RECONNECT
 } from "../mutations.types";
 
 const state = {
@@ -12,9 +13,7 @@ const state = {
 };
 
 const mutations = {
-  [SOCKET_ONOPEN](state, payload) {
-    /* eslint-disable */
-    console.log({ payload });
+  [SOCKET_ONOPEN](state) {
     state.connected = true;
   },
   [SOCKET_ONMESSAGE](state, payload) {
@@ -25,6 +24,7 @@ const mutations = {
         state.tx.push(data.x);
         break;
       case "block":
+          //eslint-disable-next-line
         console.log(data.x);
         state.blocks.push(data.x);
         break;
@@ -34,6 +34,9 @@ const mutations = {
   },
   [SOCKET_ONCLOSE](state) {
     state.connected = false;
+  },
+  [SOCKET_RECONNECT](state) {
+    state.connected = true;
   },
   [CLEAR_TRANSACTIONS](state) {
     state.tx = [];
