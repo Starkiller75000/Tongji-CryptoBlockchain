@@ -1,22 +1,15 @@
 import Vue from "vue";
 import Vuex from "vuex";
 import drawer from "./modules/drawer";
+import wss from "./modules/wss";
 
 Vue.use(Vuex);
 
 const store = new Vuex.Store({
   modules: {
-    drawer
-  },
-  state: {
-    count: 0
-  },
-  mutations: {
-    setState(state, payload) {
-      state.count = payload;
-    }
-  },
-  actions: {}
+    drawer,
+    wss
+  }
 });
 
 export default store;

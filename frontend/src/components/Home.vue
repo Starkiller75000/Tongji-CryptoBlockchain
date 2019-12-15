@@ -1,11 +1,5 @@
 <template>
   <div>
-    home
-    <div>
-      {{ nb }}
-      <pre>onmessage</pre>
-      triggered
-    </div>
     {{ connected ? "connected" : "not connected" }}
     <br />
     <v-btn type="primary" @click="sub">
@@ -14,54 +8,43 @@
     <v-btn @click="unsub">
       Unsubscribe
     </v-btn>
+    <v-btn @click="clear">
+      clear
+    </v-btn>
+    <template v-for="(item, index) in transactions">
+      <pre :key="index" style="margin-bottom: 10px">
+      {{ JSON.stringify(item, null, 2) }}
+    
+      </pre>
+    </template>
   </div>
 </template>
 
 <script>
+import { CLEAR_TRANSACTIONS } from "@/store/mutations.types";
 export default {
-  data() {
-    return {
-      socket: null,
-      nb: 0,
-      connected: false
-    };
-  },
-  methods: {
-    unsub() {
-      this.socket.send(JSON.stringify({ op: "blocks_unsub" }));
-      this.socket.send(JSON.stringify({ op: "unconfirmed_unsub" }));
+  computed: {
+    connected() {
+      return this.$store.state.wss.connected;
     },
-    sub() {
-      this.socket.send(JSON.stringify({ op: "blocks_sub" }));
-      this.socket.send(JSON.stringify({ op: "unconfirmed_sub" }));
+    transactions() {
+      return this.$store.state.wss.tx;
     }
   },
-  created() {
-    /* eslint-disable */
-    this.socket = new WebSocket("wss://ws.blockchain.info/inv");
-    this.socket.onopen = e => {
-      this.connected = true;
-    };
-
-    this.socket.onmessage = e => {
-      const data = JSON.parse(e.data);
-
-      switch (data.op) {
-        case "utx":
-          console.log("transaction");
-          break;
-        case "block":
-          console.log("block");
-        default:
-          break;
-      }
-      // console.log(e);
-      // console.log(JSON.parse(e.data));
-      this.nb++;
-    };
-
-    this.socket.onerror = console.log;
-  }
+  methods: {
+    clear() {
+      this.$store.commit(CLEAR_TRANSACTIONS);
+    },
+    unsub() {
+      this.$socket.send(JSON.stringify({ op: "blocks_unsub" }));
+      this.$socket.send(JSON.stringify({ op: "unconfirmed_unsub" }));
+    },
+    sub() {
+      this.$socket.send(JSON.stringify({ op: "blocks_sub" }));
+      this.$socket.send(JSON.stringify({ op: "unconfirmed_sub" }));
+    }
+  },
+  created() {}
 };
 </script>
 
