@@ -1,7 +1,7 @@
 <template>
   <v-navigation-drawer app v-model="drawer">
     <v-list dense>
-      <v-list-item link>
+      <v-list-item link to="/">
         <v-list-item-action>
           <v-icon>mdi-home</v-icon>
         </v-list-item-action>
@@ -9,7 +9,7 @@
           <v-list-item-title>Home</v-list-item-title>
         </v-list-item-content>
       </v-list-item>
-      <v-list-item link>
+      <v-list-item link to="/contact">
         <v-list-item-action>
           <v-icon>mdi-contact-mail</v-icon>
         </v-list-item-action>
