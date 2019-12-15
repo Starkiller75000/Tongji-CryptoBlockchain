@@ -44,8 +44,19 @@ export default {
     };
 
     this.socket.onmessage = e => {
-      console.log(e);
-      console.log(JSON.parse(e.data));
+      const data = JSON.parse(e.data);
+
+      switch (data.op) {
+        case "utx":
+          console.log("transaction");
+          break;
+        case "block":
+          console.log("block");
+        default:
+          break;
+      }
+      // console.log(e);
+      // console.log(JSON.parse(e.data));
       this.nb++;
     };
 
@@ -54,4 +65,4 @@ export default {
 };
 </script>
 
-<style/>
+<style />
