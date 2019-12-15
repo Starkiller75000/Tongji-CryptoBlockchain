@@ -26,10 +26,10 @@ export default {
   computed: {
     drawer: {
       get() {
-        return this.$store.state.drawer;
+        return this.$store.state.drawer.open;
       },
       set(v) {
-        this.$store.commit("setDrawer", v);
+        this.$store.commit("drawer/setDrawer", v);
       }
     }
   }
