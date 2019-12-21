@@ -22,8 +22,12 @@ contract Election {
     );
 
     constructor () public {
-        addCandidate("Candidate 1");
-        addCandidate("Candidate 2");
+        addCandidate("C++");
+        addCandidate("Go");
+        addCandidate("Java");
+        addCandidate("Python");
+        addCandidate("Ruby");
+        addCandidate("Rust");
     }
 
     function addCandidate (string memory _name) private {

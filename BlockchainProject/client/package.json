@@ -5,9 +5,11 @@
   "dependencies": {
     "@material-ui/core": "^4.8.0",
     "@material-ui/icons": "^4.5.1",
+    "chart.js": "^2.9.3",
     "react": "16.11.0",
+    "react-chartjs-2": "^2.8.0",
     "react-dom": "16.11.0",
-    "react-scripts": "3.2.0",
+    "react-scripts": "^3.3.0",
     "web3": "1.2.2"
   },
   "scripts": {

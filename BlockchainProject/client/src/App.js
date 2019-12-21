@@ -12,9 +12,9 @@ import MenuItem from '@material-ui/core/MenuItem';
 import FormHelperText from '@material-ui/core/FormHelperText';
 import FormControl from '@material-ui/core/FormControl';
 import Select from '@material-ui/core/Select';
-
 import "./App.css";
 import Button from "@material-ui/core/Button";
+import CPie from "./views/component/chart/pie";
 
 class App extends Component {
 
@@ -23,7 +23,8 @@ class App extends Component {
     this.handleChange = this.handleChange.bind(this);
   }
 
-  state = { storageValue: 0, web3: null, accounts: null, contract: null, rows: [], hasVoted: false, candidateId: '1' };
+  state = { storageValue: 0, web3: null, accounts: null, contract: null, rows: [], hasVoted: false, candidateId: '1',
+   data: [] };
 
   componentDidMount = async () => {
     try {
@@ -60,6 +61,7 @@ class App extends Component {
   initData = async () => {
     const { contract, accounts } = this.state;
     const rows = [];
+    let data = [];
 
     // Get number of candidates
     const candidatesCount = await contract.methods.candidatesCount().call();
@@ -71,8 +73,12 @@ class App extends Component {
     // Get if user hasVoted
     const hasVoted = await contract.methods.voters(accounts[0]).call();
 
+    rows.map(index => {
+      return data.push(index.voteCount);
+    });
+
     // Set State of number of candidates and has voted
-    this.setState({ rows, hasVoted });
+    this.setState({ rows, hasVoted, data });
   };
 
   createData = (id, name, voteCount) => {
@@ -92,7 +98,7 @@ class App extends Component {
     }
     return (
       <div className="App">
-        <h1>Election Results</h1>
+        <h1>In your opinion which language is the best ?</h1>
         <TableContainer component={Paper}>
           <Table style={{ minWidth: 650 }} aria-label="simple table">
             <TableHead>
@@ -122,11 +128,12 @@ class App extends Component {
                     <MenuItem key={row.id} value={row.id}>{row.name}</MenuItem>
                 ))}
               </Select>
-              <FormHelperText>Select a Candidate</FormHelperText>
+              <FormHelperText>Select your choice</FormHelperText>
               <Button variant="contained" onClick={this.vote}>Vote</Button>
             </FormControl>
         ):null}
         <p>Your account: { this.state.accounts[0] }</p>
+        <CPie datas={this.state.data} />
       </div>
     );
   }
